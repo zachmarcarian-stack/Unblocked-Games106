@@ -1,0 +1,29 @@
+[
+  {
+    "id": "basketball-hoops",
+    "title": "Hoop Shot",
+    "category": "Sports",
+    "description": "A tiny basketball shooting game. Click the ball to score.",
+    "emoji": "🏀",
+    "color": "#3b285d",
+    "srcdoc": "<!doctype html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#17213a,#39245b);font-family:system-ui;color:white;text-align:center}.game{padding:24px}.hoop{font-size:100px}.ball{font-size:58px;border:0;background:none;cursor:pointer;transition:transform .15s}.ball:active{transform:translateY(-28px) scale(.9)}button.reset{padding:10px 18px;border:0;border-radius:9px;background:#7c6cff;color:white;font-weight:bold;cursor:pointer}</style></head><body><div class=\"game\"><h1>🏀 Hoop Shot</h1><div class=\"hoop\">🧺</div><button class=\"ball\" id=\"ball\" aria-label=\"Shoot basketball\">🏀</button><h2>Score: <span id=\"score\">0</span></h2><p>Tap the basketball to shoot!</p><button class=\"reset\" onclick=\"document.getElementById('score').textContent='0'\">Reset score</button></div><script>let score=0;document.getElementById('ball').onclick=()=>{score++;document.getElementById('score').textContent=score}</script></body></html>"
+  },
+  {
+    "id": "quick-click",
+    "title": "Quick Click",
+    "category": "Arcade",
+    "description": "Click the target as many times as you can in 15 seconds.",
+    "emoji": "⚡",
+    "color": "#254b5b",
+    "srcdoc": "<!doctype html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;background:#101827;color:white;font-family:system-ui;text-align:center;display:grid;place-items:center;min-height:100vh}.wrap{padding:20px}.target{width:120px;height:120px;border:0;border-radius:50%;background:#43d6c5;font-size:48px;cursor:pointer;box-shadow:0 8px 0 #187c78}.target:active{transform:translateY(5px);box-shadow:0 3px 0 #187c78}button.start{padding:10px 20px;border:0;border-radius:8px;background:#7c6cff;color:white;font-weight:bold;cursor:pointer}</style></head><body><div class=\"wrap\"><h1>⚡ Quick Click</h1><h2>Time: <span id=\"time\">15</span>s · Score: <span id=\"score\">0</span></h2><button class=\"target\" id=\"target\" disabled>★</button><p id=\"message\">Press Start, then click fast!</p><button class=\"start\" id=\"start\">Start game</button></div><script>let score=0,time=15,timer;const target=document.getElementById('target');document.getElementById('start').onclick=()=>{clearInterval(timer);score=0;time=15;target.disabled=false;document.getElementById('score').textContent=0;document.getElementById('time').textContent=15;document.getElementById('message').textContent='Go!';timer=setInterval(()=>{time--;document.getElementById('time').textContent=time;if(time<=0){clearInterval(timer);target.disabled=true;document.getElementById('message').textContent='Time is up! Final score: '+score}},1000)};target.onclick=()=>{score++;document.getElementById('score').textContent=score}</script></body></html>"
+  },
+  {
+    "id": "memory-match",
+    "title": "Memory Match",
+    "category": "Puzzle",
+    "description": "Find all matching pairs of emoji cards.",
+    "emoji": "🧠",
+    "color": "#55402b",
+    "srcdoc": "<!doctype html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><style>body{margin:0;background:#172033;color:white;font-family:system-ui;text-align:center;padding:18px}.board{display:grid;grid-template-columns:repeat(4, minmax(48px,72px));gap:9px;justify-content:center;margin:22px auto}.card{height:70px;border:0;border-radius:10px;background:#6558c9;color:white;font-size:28px;cursor:pointer}.card.open{background:#e7eaff;color:#182039}.card:disabled{cursor:default}.note{color:#aebbd0}</style></head><body><h1>🧠 Memory Match</h1><p class=\"note\">Flip cards and find all four pairs.</p><h3 id=\"status\">Moves: 0</h3><div class=\"board\" id=\"board\"></div><button onclick=\"start()\" style=\"padding:9px 16px;border:0;border-radius:8px\">Restart</button><script>const icons=['🍉','🚀','🐸','⭐'];let deck,moves,chosen,locked,matched;function start(){deck=[...icons,...icons].sort(()=>Math.random()-.5);moves=0;chosen=[];locked=false;matched=0;document.getElementById('status').textContent='Moves: 0';const b=document.getElementById('board');b.innerHTML='';deck.forEach((v,i)=>{let x=document.createElement('button');x.className='card';x.textContent='?';x.onclick=()=>flip(i,x);b.append(x)})}function flip(i,el){if(locked||el.classList.contains('open')||el.disabled)return;el.textContent=deck[i];el.classList.add('open');chosen.push({i,el});if(chosen.length===2){moves++;document.getElementById('status').textContent='Moves: '+moves;let [a,b]=chosen;if(deck[a.i]===deck[b.i]){a.el.disabled=b.el.disabled=true;matched+=2;chosen=[];if(matched===8)document.getElementById('status').textContent='You won in '+moves+' moves!'}else{locked=true;setTimeout(()=>{a.el.textContent=b.el.textContent='?';a.el.classList.remove('open');b.el.classList.remove('open');chosen=[];locked=false},750)}}}start()</script></body></html>"
+  }
+]
